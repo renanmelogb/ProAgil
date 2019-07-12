@@ -181,9 +181,10 @@ Em eventos.component.ts, alterar o construtor para chamar o serviço que criamos
 Os providers são importantes para injeção de dependencia, como por exemplo o serviço ser utilizado em outras partes do projeto (Aula 56)
 
 
-
-
-
+Aula 56 - Observable (Projeto APP):
+Em "evento.service.ts" getEvento():Observable<Evento> 
+https://pt.stackoverflow.com/questions/207362/qual-%C3%A9-a-diferen%C3%A7a-entre-promises-e-observables/348771#348771
+https://tableless.com.br/entendendo-rxjs-observable-com-angular/
 
 
 {{}}->Interpolação
@@ -198,6 +199,11 @@ shift + alst + ctrl -> é possivel mover o cursor entre as linhas sem selecionar
 
 Duvidas:
 O que é injeção de dependencia?
+
+Template string:
+`${this.baseURL}/getByTema/${tema}`
+
+
 
 Postman:
 renan.cont20@yahoo.com.br
