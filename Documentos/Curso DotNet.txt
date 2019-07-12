@@ -1,0 +1,176 @@
+Node.js é um interpretador, com código aberto, de código JavaScript de modo assíncrono e orientado a eventos, focado em migrar a programação do Javascript do lado do cliente para os servidores, criando assim aplicações de alta escalabilidade (como um servidor web[1]), capazes de manipular milhares de conexões/requisições simultâneas em tempo real, numa única máquina física.
+
+
+1 - Instalar nodejs
+2 - Adicionar caminho nas variaveis de ambiente do windows npm -v
+3 - Instalar typescript (npm install -g typescript) tsc -v
+4 - Executar o comando "npm init -y" para gerar o package.json, alterar os parametros conforme instrução
+5 - Criar arquivo tsconfig.json, alterar conforme instruções
+6 - Executar comando "npm install" para instalar para gerar os modulos mencionados no arquivo package.json
+7 - Criar arquivo "systemjs.config.js" que permite carregar módulos compilados usando o compilador TypeScript. Alterar conforme instrução.
+Este arquivo faz o mapeamento para os arquivos dos pacotes e permite que compilador encontre os arquivo referenciados.
+
+
+
+https://www.quora.com/How-do-I-install-a-previous-version-of-Angular-e-g-Angular-4
+
+
+
+1 - Adicionar extensões:
+C# for visual studio code
+C# Extensions
+Bracket Pair Colorizer
+Material Icon Temas
+Path Intellisense
+Nuget Package Manager
+Unity Tools
+Git Lens
+Git History
+
+1.1-Angular
+Angular Files
+Angular Language Service
+angular2-switcher
+Auto Rename Tag
+Debugger for Chrome
+npm
+Prettier - Code Formatter
+TS Lint
+
+
+Criar Projeto Web:
+
+Criação de 3 projetos:
+dotnet new web -n ProgAgil.WEB
+dotnet new mvc -n ProgAgil.MVC
+dotnet new webapi -n ProgAgil.API
+
+
+ProgAgil.API:
+Criar acesso a dados Entity:
+Ir em Extensions, digitar @installed, encontrar Nuget Package, clicar "ctrl+shift+p", escrever nuget -> Microsoft.EntityFrameworkCore.Sqlite -> Instalar versão 2.2, isso será usado ao adicionar conexão "UseSqlite" no item 3. 
+1-Criar pasta Model
+2-Criar classe DbContext
+3-Alterar a classe "Startup.cs" em ConfigureServices para adicionar a linha de conexão.
+4-Adicionar DbSet em DataContext
+
+Adicionar Migrations:
+dotnet ef migrations add init
+dotnet ef database update
+
+Instalar Angular:
+https://angular.io/guide/setup-local
+
+Rodar angular:
+ng serve
+
+Iniciar um projeto Angular:
+https://cli.angular.io/
+Criar projeto ProAgil-App
+Copiar conteúdo do .gitignore e colocar no arquivo .gitignore geral
+Criar componente, botão direito em app -> generate component
+Para realizar a chamada da WebAPI deve importar "HttpClientModule" em app.module.ts
+Imprementar construtor com HttpClient em eventos.component.ts, importa o HttpClient
+
+Resolvendo erro de CORS (referencia cruzada) na WebAPI:
+Ir no arquivo "Startup.cs" 
+
+Colocar bootstrap e layout Angular:
+https://getbootstrap.com/docs/4.3/getting-started/download/
+https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers
+npm install --save-dev bootstrap@fortawesome/fontawesome-free
+Após a instalação deverá ir em "styles.css" e realizar a importação dos arquivos
+
+Inserir barra de navegação:
+Ir no site do bootstrap em exemplos, selecionar modelo desejado, inspecionar e copiar elemento <nav>
+Criar novo componente chamado nav
+Colocar a referencia no app.component.html
+
+Usando imagens na API:
+Adicionar linha app.UseStaticFiles() no arquivo Startup.cs
+Criar pasta wwwroot e colocar as imagens
+
+Fazendo filtro de pesquisa funcionar com two way data binding (caixa de banana [()]):
+Adicionar diretiva "caixa de banana" [(ngModel)]="filtroLista" dentro da div de consulta, obs: não funciona em form comum, só em div
+Criar variavel "filtroLista" dentro de "eventos.components.ts"
+Adicionar import de "FormsModule" em "app.module.ts" para que funcione a diretiva acima
+
+Adicionar filtro grid ao digitar:
+Criar encapsulamento de "_filtroLista" em eventos.component.ts, serve para não acessar a váriavel diretamente
+  _filtroLista: string;
+  get filtroLista(): string {
+    return this._filtroLista;
+  }
+  set filtroLista(value: string) {
+    this._filtroLista = value;
+    this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
+  }
+Criar metodo "filtrarEventos" para tranformar itens em lowercase e retornar dados
+Colocar esse metodo dentro do Get de filtroLista, caso exista na grid irá filtra, se não traz o que já existe
+Em "eventos.component.ts" adicionar o eventosFiltrador no ngFor da GRID
+
+
+Utilizando pipe "|" na grid:
+evento.moeda | currency -> transforma os campos em tipo moeda
+
+
+Trabalhando com camadas:
+dotnet new classlib -n ProAgil.Domain
+dotnet new classlib -n ProAgil.Repository
+dotnet new sln -n ProAgil
+Adicionar referencias:
+dotnet add ProAgil.Repository/ProAgil.Repository.csproj reference ProAgil.Domain/ProAgil.Domain.csproj
+dotnet add ProAgil.API/ProAgil.API.csproj reference ProAgil.Domain/ProAgil.Domain.csproj
+dotnet add ProAgil.API/ProAgil.API.csproj reference ProAgil.Repository/ProAgil.Repository.csproj
+Adicionar referencia a solução:
+dotnet sln add ProAgil.API/ProAgil.API.csproj ProAgil.Repository/ProAgil.Repository.csproj ProAgil.Domain/ProAgil.Domain.csproj
+Excluir bin e obj dos projetos (Repository, Domain, API)
+Fazer "dotnet build"
+
+Entidades:
+Arrastar classe evento.cs de API para projeto Dominio
+Criar as classes de Lote, Palestrante, PalestranteEvento, RedeSocial, atualizar a estrutura para manter o relacionamento da figura (Evento N x N Palestrante)
+
+Repositório:
+Mover a classe DbContext de API para o projeto Repository
+Instalar EntityFrameworkCore no projeto Repository: "ctrl+shift+p" -> escrever nuget -> Microsoft.EntityFrameworkCore, fazer restore
+Completar classe DbContext com as novas classes
+Instalar Sqlite "Microsoft.EntityFrameworkCore.Sqlite" do mesmo modo que acima 
+Criar migrations, referenciar "dotnet ef --startup-project ../ProAgil.API migrations add init" obs: não pode ser criado dentro da classlibrary
+Criar banco de dados "dotnet ef --startup-project ../ProAgil.API database update"
+
+Criar Interface para Repositório (Repository):
+New interface "IProAgilRepository", a interface terá métodos genéricos
+Criar classe e implementar a interface
+
+Controllers Evento (Projeto API):
+Em Startup.cs adicionar diretiva "services.AddScoped<IProAgilRepository, ProAgilRepository>();" isso significa que quando fizer uma injeção de dependencia 
+e alguem precisar do IProAgilRepository irá utilizar o ProAgilRepository, não requisita o contexto direto.
+Criar classe EventosController
+Não esquecer de adicionar configuração de rota na Controller:
+    [Route("api/[controller]")]
+    [ApiController]
+No projeto Domainm na classe Lote o atributo Evento deve ser readonly (só get), para não dar erro na inclusão, assim como os atributos similares nas outras classes, isso acontece porque Lote não tem Eventos e sim Evento tem Lotes.
+
+Tracker e No Tracker:
+Quando faz uma consulta com entity framework, ele trava o recurso até finalizar a transação.
+No repositório quando retorna o mesmo tipo que está recebendo ex. IQueryable<Evento> = "Resultado do objeto Evento", na query onde é feito o orderby deve ser adicionado "AsNoTracking()"
+Ou pode ser realizado de forma geral também, adicionando na injeção de dependencia do contexto:
+_context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTraking;
+https://docs.microsoft.com/en-us/ef/core/querying/tracking
+
+
+
+
+{{}}->Interpolação
+
+github
+github.com/vsandrade/
+https://github.com/vsandrade/ProAgil
+
+Atalhos:
+ctrl+d -> Selecionar mais de uma ocorrencia similar para edição
+
+
+Duvidas:
+O que é injeção de dependencia?
