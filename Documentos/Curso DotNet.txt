@@ -1,4 +1,6 @@
-Node.js é um interpretador, com código aberto, de código JavaScript de modo assíncrono e orientado a eventos, focado em migrar a programação do Javascript do lado do cliente para os servidores, criando assim aplicações de alta escalabilidade (como um servidor web[1]), capazes de manipular milhares de conexões/requisições simultâneas em tempo real, numa única máquina física.
+Node.js é um interpretador, com código aberto, de código JavaScript de modo assíncrono e orientado a eventos, focado em migrar a programação do Javascript do lado do cliente para 
+os servidores, criando assim aplicações de alta escalabilidade (como um servidor web[1]), capazes de manipular milhares de conexões/requisições simultâneas em tempo real, 
+numa única máquina física.
 
 
 1 - Instalar nodejs
@@ -160,6 +162,16 @@ _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTraking;
 https://docs.microsoft.com/en-us/ef/core/querying/tracking
 
 
+Injeção de serviço (Projeto App):
+em app-> criar a pasta _services e criar dentro dessa pasta um serviço chamado evento
+Esse serviço tem como finalidade a chamada do serviço da api para carregas as informações
+Em eventos.component.ts, alterar o construtor para chamar o serviço que criamos acima. Alterar também o método getEvento desse componente
+Os providers são importantes para injeção de dependencia, como por exemplo o serviço ser utilizado em outras partes do projeto (Aula 56)
+
+
+
+
+
 
 
 {{}}->Interpolação
@@ -174,3 +186,8 @@ ctrl+d -> Selecionar mais de uma ocorrencia similar para edição
 
 Duvidas:
 O que é injeção de dependencia?
+
+Postman:
+renan.cont20@yahoo.com.br
+repostman21
+Postman@2019
