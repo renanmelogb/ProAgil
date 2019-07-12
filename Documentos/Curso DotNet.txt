@@ -1,3 +1,8 @@
+Para rodar um projeto executar o comando "npm install"
+
+Baixar e instalar Dot Net Core:
+https://dotnet.microsoft.com/download
+
 Node.js é um interpretador, com código aberto, de código JavaScript de modo assíncrono e orientado a eventos, focado em migrar a programação do Javascript do lado do cliente para os servidores, criando assim aplicações de alta escalabilidade (como um servidor web[1]), capazes de manipular milhares de conexões/requisições simultâneas em tempo real, numa única máquina física.
 
 
@@ -10,10 +15,9 @@ Node.js é um interpretador, com código aberto, de código JavaScript de modo a
 7 - Criar arquivo "systemjs.config.js" que permite carregar módulos compilados usando o compilador TypeScript. Alterar conforme instrução.
 Este arquivo faz o mapeamento para os arquivos dos pacotes e permite que compilador encontre os arquivo referenciados.
 
-
-
+Instalar Angular Cli:
+npm install -g @angular/cli
 https://www.quora.com/How-do-I-install-a-previous-version-of-Angular-e-g-Angular-4
-
 
 
 1 - Adicionar extensões:
@@ -160,6 +164,11 @@ _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTraking;
 https://docs.microsoft.com/en-us/ef/core/querying/tracking
 
 
+Interface Models (Projeto APP):
+Criar pasta _models
+Criar interface "Evento", essas interfaces são para referencia
+
+
 
 
 {{}}->Interpolação
@@ -170,7 +179,7 @@ https://github.com/vsandrade/ProAgil
 
 Atalhos:
 ctrl+d -> Selecionar mais de uma ocorrencia similar para edição
-
+shift + alst + ctrl -> é possivel mover o cursor entre as linhas sem selecionar
 
 Duvidas:
 O que é injeção de dependencia?
