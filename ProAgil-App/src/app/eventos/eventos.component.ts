@@ -12,9 +12,9 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 })
 export class EventosComponent implements OnInit {
 
-
   eventosFiltrados: Evento[];
-  eventos: Evento[] = [];
+  eventos: Evento[];
+  evento: Evento;
   imagemLargura = 50;
   mostrarImagem = false;
   modalRef: BsModalRef;
@@ -34,7 +34,7 @@ export class EventosComponent implements OnInit {
     this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
 
-  openModal(template: TemplateRef<any>){
+  openModal(template: TemplateRef<any>) {
       this.modalRef = this.modalService.show(template);
   }
 
@@ -58,6 +58,7 @@ export class EventosComponent implements OnInit {
     // tslint:disable-next-line:variable-name
     (_eventos: Evento[]) => {
       this.eventos = _eventos;
+      this.eventosFiltrados = this.eventos;
       console.log(_eventos);
     }, error => {
       console.log(error);
