@@ -13,7 +13,7 @@ export class EventoService {
 
 constructor(private http: HttpClient) { }
 
-getAllEventos(): Observable<Evento[]>
+getAllEvento(): Observable<Evento[]>
 {
   return this.http.get<Evento[]>(this.baseURL);
 }

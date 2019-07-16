@@ -186,6 +186,35 @@ Em "evento.service.ts" getEvento():Observable<Evento>
 https://pt.stackoverflow.com/questions/207362/qual-%C3%A9-a-diferen%C3%A7a-entre-promises-e-observables/348771#348771
 https://tableless.com.br/entendendo-rxjs-observable-com-angular/
 
+Aula 57 - Ajustando icones e imagens (Projeto APP):
+Utilizado para alterar icone na hora de ver ou ocultar imagem: <i class="{{mostrarImagem ? 'fa fa-eye-slash' : 'fa fa-eye'}}"></i>
+Quando da problema no atributo length tem que iniciar variavel desse jeito: eventos: Evento[] = [];
+
+Aula 58 - Criando filtro de datas pipe:
+Em app criar nova pasta chamada "helps", dentro de helps clicar com botão direito e em "generate pipe"
+em .pipe.ts usar o "super" para extender de DatePipe
+Criar pasta util e gerar uma classe de formatação de data, nessa classe criar as propriedade readonly com formato de data
+Em app.module declarar o pipe de date criado, não esquecer de adicionar o provider "EventoService" em providers
+
+Aula 59 - NGX Bootstrap (Projeto APP):
+Serve para trabalhar com itens como se fosse JQuery (modal, dropdown, tooltip)
+https://valor-software.com/ngx-bootstrap
+npm install ngx-bootstrap --save
+Em app.module adicionar os imports e as referencias no site é possivel ver o que tem que ser importado ex.: TooltipModule.forRoot()
+
+Aula 60 - Botoes e tooltips (Projeto APP):
+No html -> <button class="btn btn-sm btn-success" tooltip="Editar">
+
+Aula 61 - Modal (Projeto APP):
+Criar estrutura do modal no Html
+No component.ts alterar o construtor para herdar de BsModalService-> private modalService: BsModalService
+Criar função openModal responsável por abrir o Modal
+No evento click da grid-> (click)="openModal(template)"
+
+Aula 62 - Dropdown navbar (Projeto APP):
+Adicionar estrutura do navbar em nav.component.html
+
+
 
 {{}}->Interpolação
 
@@ -196,6 +225,7 @@ https://github.com/vsandrade/ProAgil
 Atalhos:
 ctrl+d -> Selecionar mais de uma ocorrencia similar para edição
 shift + alst + ctrl -> é possivel mover o cursor entre as linhas sem selecionar
+ctrl+shift+p-> escrever reindent lines para identar linhas html
 
 Duvidas:
 O que é injeção de dependencia?
