@@ -1,96 +1,155 @@
-
-<!-- {{eventos[0].Tema}} -->
-
-<!-- Instrução For -->
-<!-- <div *ngFor="let evento of eventos">
-  Tema: {{evento.tema}}
-  <br/>
-  Local: {{evento.local}}
-  <hr>
-</div> -->
-
-<div class="form-inline">
-  <div class="form-group mb-2">
-    Filtro:
-    <input type="text" 
-    class="form-control mr-2" 
-    placeholder="buscar"
-    [(ngModel)]="filtroLista"
-    >
+  <div class="form-inline">
+    <div class="form-group mb-2">
+      Filtro:
+      <input type="text" 
+      class="form-control mr-2" 
+      placeholder="buscar"
+      [(ngModel)]="filtroLista"
+      >
+    </div>
   </div>
-</div>
-<h3>Filtro: {{filtroLista}}</h3>
-<table class="table table-striped">
-  <thead class="thead-light">
+  <h3>Filtro: {{filtroLista}}</h3>
+  <table class="table table-striped">
+    <thead class="thead-light">
+      <tr>
+        <th>
+          <button class="btn btn-outline-primary"
+          (click)="alternarImagem()">
+          <i class="{{mostrarImagem ? 'fa fa-eye-slash' : 'fa fa-eye'}}"></i>
+        </button>
+      </th>
+      <th>#</th>
+      <th>Tema</th>      
+      <th>Local</th>
+      <th>Data</th>
+      <th>Qtd Pessoas</th>
+      <th>Lote</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="eventos && eventos.length">
+    <tr *ngFor="let evento of eventosFiltrados">
+      <td>
+        <img *ngIf="mostrarImagem" 
+        src="http://localhost:5000/img/{{evento.imagemURL}}"
+        [style.width.px]="imagemLargura">        
+      </td>
+      <td>{{evento.id}}</td>
+      <td>{{evento.tema}}</td>
+      <td>{{evento.local}}</td>
+      <td>{{evento.dataEvento | DateTimeFormatPipe}}</td>
+      <td>{{evento.qtdPessoas}}</td>
+      <td>
+        <div *ngIf="!evento.lotes.length">
+          Não informado
+        </div>
+        <div *ngIf="evento.lotes.length">
+          {{evento.lotes[0].nome | uppercase}}
+        </div>
+      </td>
+      <td>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="openModal(template)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-danger" tooltip="Excluir">
+            <i class="fa fa-eraser"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!eventos.length">
     <tr>
-      <th>
-        <button class="btn btn-outline-primary"
-        (click)="alternarImagem()">
-        <i class="{{mostrarImagem ? 'fa fa-eye-slash' : 'fa fa-eye'}}"></i>
-      </button>
-    </th>
-    <th>#</th>
-    <th>Tema</th>      
-    <th>Local</th>
-    <th>Data</th>
-    <th>Qtd Pessoas</th>
-    <th>Lote</th>
-    <th>Opções</th>
-  </tr>
-</thead>
-<tbody *ngIf="eventos && eventos.length">
-  <tr *ngFor="let evento of eventosFiltrados">
-    <td>
-      <img *ngIf="mostrarImagem" 
-      src="http://localhost:5000/img/{{evento.imagemURL}}"
-      [style.width.px]="imagemLargura">        
-    </td>
-    <td>{{evento.id}}</td>
-    <td>{{evento.tema}}</td>
-    <td>{{evento.local}}</td>
-    <td>{{evento.dataEvento | DateTimeFormatPipe}}</td>
-    <td>{{evento.qtdPessoas}}</td>
-    <td>
-      <div *ngIf="!evento.lotes.length">
-        Não informado
-      </div>
-      <div *ngIf="evento.lotes.length">
-        {{evento.lotes[0].nome | uppercase}}
-      </div>
-    </td>
-    <td>
-      <div class="btn-group">
-        <button class="btn btn-sm btn-success" tooltip="Editar" (click)="openModal(template)">
-          <i class="fa fa-edit"></i>
-        </button>
-        <button class="btn btn-sm btn-danger" tooltip="Excluir">
-          <i class="fa fa-eraser"></i>
-        </button>
-      </div>
-    </td>
-  </tr>
-</tbody>
-<tfoot *ngIf="!eventos.length">
-  <tr>
-    <td colspan="7" class="text-center">
-      <h4>
-        Nenhum evento encontrado!
-      </h4>
-    </td>
-  </tr>
-</tfoot>
-</table>
+      <td colspan="7" class="text-center">
+        <h4>
+          Nenhum evento encontrado!
+        </h4>
+      </td>
+    </tr>
+  </tfoot>
+  </table>
 
-<!-- Criando Modal -->
-<ng-template #template>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
-    <button type="button" class="close pull-right" 
-    aria-label="Close" (click)="modalRef.hide()">
-    <span aria-hidden="true">&times;</span>
+  <!-- Criando Modal -->
+  <ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Modal</h4>
+      <button type="button" class="close pull-right" 
+      aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal.
+  </div>
+  </ng-template>
+
+  <!-- Aula 64 criando formulário -->
+  <form [formGroup]="registerForm">  
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label>Tema</label>
+        <input type="text" class="form-control is-invalid" formControlName="tema" placeholder="Insira o Tema">
+        <div class="invalid-feedback">
+          O tema é obrigatório.
+        </div>
+      </div>
+    </div>  
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <label>Local</label>
+        <input type="text" class="form-control is-invalid" formControlName="local" placeholder="">
+        <div class="invalid-feedback">
+          O local é obrigatório.
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label>Data e Hora</label>
+        <input type="text" class="form-control is-invalid" formControlName="dataEvento" placeholder="">
+        <div class="invalid-feedback">
+          Data e hora é obrigatório.
+        </div>
+      </div>
+    </div>  
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label>Qtd Pessoas</label>
+        <input type="text" class="form-control is-invalid" formControlName="qtdPessoas" placeholder="">
+        <div class="invalid-feedback">
+          Quantidade de pessoas é obrigatório.
+        </div>
+      </div>
+      <div class="form-group col-md-9">
+        <label>Imagem</label>
+        <input type="text" class="form-control is-invalid" formControlName="imagemURL" placeholder="">
+        <div class="invalid-feedback">
+          A imagem é obrigatório.
+        </div>
+      </div>
+    </div>  
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label>Telefone</label>
+        <input type="text" class="form-control is-invalid" formControlName="telefone" placeholder="">
+        <div class="invalid-feedback">
+          O telefone é obrigatório.
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label>Email</label>
+        <input type="text" class="form-control is-invalid" formControlName="email" placeholder="">
+        <div class="invalid-feedback">
+          O email é obrigatório.
+        </div>
+      </div>
+    </div> 
+  </form>
+  <br>
+  <button class="btn btn-secondary" (click)="openModal(template)">
+    Fechar
   </button>
-</div>
-<div class="modal-body">
-  This is a modal.
-</div>
-</ng-template>
+  <button class="btn btn-primary" (click)="salvarAlteracao()">
+    Salvar Alterações
+  </button>
+    <br>
+  <br>

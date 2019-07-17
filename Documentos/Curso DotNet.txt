@@ -214,6 +214,16 @@ No evento click da grid-> (click)="openModal(template)"
 Aula 62 - Dropdown navbar (Projeto APP):
 Adicionar estrutura do navbar em nav.component.html
 
+Aula 64 - Criando formulário (Projeto APP):
+Criar o formulário em evento.component.html
+Em evento.component.ts criar referencia-> registerForm: FormGroup; Criar metodo de validation e salvarAlteracao
+Input formulario html referenciando campo: <input type="text" class="form-control" formControlName="imagemURL">
+Adicionar em app.module -> imports-> ReactiveFormsModule
+
+Aula 65 - Validação de Forms (Projeto APP):
+No método validation em evento.component.ts, adicionar os validadores
+
+
 
 
 {{}}->Interpolação
