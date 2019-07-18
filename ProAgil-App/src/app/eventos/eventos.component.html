@@ -89,17 +89,28 @@
     <div class="form-row">
       <div class="form-group col-md-12">
         <label>Tema</label>
-        <input type="text" class="form-control is-invalid" formControlName="tema" placeholder="Insira o Tema">
-        <div class="invalid-feedback">
-          O tema é obrigatório.
+        <!-- ngClass para validar os registros -->
+        <input type="text" class="form-control"
+        [ngClass]="{'is-invalid': registerForm.get('tema').errors && registerForm.get('tema').touched}" 
+         formControlName="tema" placeholder="Insira o Tema">
+        <div *ngIf="registerForm.get('tema').hasError('required') && registerForm.get('tema').touched" class="invalid-feedback">
+          Tema é obrigatório.
+        </div>
+        <div *ngIf="registerForm.get('tema').hasError('minlength') && registerForm.get('tema').touched" class="invalid-feedback">
+          Tema deve ter no mínimo 4 caracteres.
+        </div>
+        <div *ngIf="registerForm.get('tema').hasError('maxlength') && registerForm.get('tema').touched" class="invalid-feedback">
+          Tema deve ter no máximo 50 caracteres.
         </div>
       </div>
     </div>  
     <div class="form-row">
       <div class="form-group col-md-8">
         <label>Local</label>
-        <input type="text" class="form-control is-invalid" formControlName="local" placeholder="">
-        <div class="invalid-feedback">
+        <input type="text" class="form-control" 
+        [ngClass]="{'is-invalid': registerForm.get('local').errors && registerForm.get('local').touched}"
+        formControlName="local" placeholder="">
+        <div *ngIf="registerForm.get('local').hasError('required') && registerForm.get('local').touched" class="invalid-feedback">
           O local é obrigatório.
         </div>
       </div>

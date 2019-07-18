@@ -220,9 +220,12 @@ Em evento.component.ts criar referencia-> registerForm: FormGroup; Criar metodo 
 Input formulario html referenciando campo: <input type="text" class="form-control" formControlName="imagemURL">
 Adicionar em app.module -> imports-> ReactiveFormsModule
 
-Aula 65 - Validação de Forms (Projeto APP):
+Aula 65, 66, 67 - Validação de Forms [formGroup]="registerForm" (Projeto APP):
 No método validation em evento.component.ts, adicionar os validadores
-
+No form adicionar [ngClass]para validar se existe erro quando clicado no campo 
+[ngClass]="{'is-invalid': registerForm.get('tema').errors && registerForm.get('tema').touched}"
+Adicionado [ngIf] que verifica qual tipo de erro está ocorrendo 
+*ngIf="registerForm.get('tema').hasError('required') && registerForm.get('tema').touched"
 
 
 
