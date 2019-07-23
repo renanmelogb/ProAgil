@@ -227,6 +227,25 @@ No form adicionar [ngClass]para validar se existe erro quando clicado no campo
 Adicionado [ngIf] que verifica qual tipo de erro está ocorrendo 
 *ngIf="registerForm.get('tema').hasError('required') && registerForm.get('tema').touched"
 
+Aula 68 - FormBuilder Service
+Adicionar no construtor FormBuilder
+É utilizado no método validation, para não ter que instanciar FormControl em toda validação. 
+
+Aula 69 - DatePicker ngx-bootstrap:
+Em app.module.ts importar-> BsDatepickerModule.forRoot(), | O forRoot indica que pode ser usado em todo projeto
+Em style.css importar-> @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
+Em evento.component.ts adicionar os imports para conversão de data -> import { defineLocale, BsLocaleService, ptBrLocale } from 'ngx-bootstrap';
+Em evento.component.ts alterar construtor para adicionar locale e configurações
+Em app.module.ts realizar o import-> BrowserAnimationsModule
+
+Aula 71 - Registrando Evento:
+Em evento.component.html -> (click)="salvarAlteracao(template)"
+Em evento.component.ts implementar o metodo "salvarAlteracao", como ele é observable é necessário utilizar o subscribe.
+
+Aula 72 - Editando Evento:
+Em evento.component.ts criar os metodos de editarevento e novoevento
+Primeiro deve ser carregado evento na tela
+
 
 
 {{}}->Interpolação
@@ -240,8 +259,11 @@ ctrl+d -> Selecionar mais de uma ocorrencia similar para edição
 shift + alst + ctrl -> é possivel mover o cursor entre as linhas sem selecionar
 ctrl+shift+p-> escrever reindent lines para identar linhas html
 
-Duvidas:
+Duvidas e anotações:
 O que é injeção de dependencia?
+Não esquecer de passar o validation no onInitit do projeto-> this.validation();
+Para inserir usa post e para editar put
+
 
 Template string:
 `${this.baseURL}/getByTema/${tema}`
@@ -252,3 +274,7 @@ Postman:
 renan.cont20@yahoo.com.br
 repostman21
 Postman@2019
+
+
+URLs:
+https://valor-software.com/ngx-bootstrap
