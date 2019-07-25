@@ -246,6 +246,18 @@ Aula 72 - Editando Evento:
 Em evento.component.ts criar os metodos de editarevento e novoevento
 Primeiro deve ser carregado evento na tela
 
+Aula 80  - Configuração muitos para muitos (WebAPI)
+ThenInclude é utilizado em referencia muitos para muitos, primeiro usa include e pega a tabela intermediaria depois o theninclude na tabela destino no repository
+Em AutoMapperProfiles.cs -> No CreateMap utilizar ForMember MapFrom para informar que é muitos para muitos e fazer o relacionamento
+
+Aula 81 - DTO na controller
+Em EventoController colocar IMapper como parametro
+Alterar metodos para fazer o mapeamento
+
+Aula 82 - Controller DTO reverso
+
+
+
 
 
 {{}}->Interpolação
@@ -263,6 +275,7 @@ Duvidas e anotações:
 O que é injeção de dependencia?
 Não esquecer de passar o validation no onInitit do projeto-> this.validation();
 Para inserir usa post e para editar put
+ThenInclude é utilizado em referencia muitos para muitos
 
 
 Template string:
