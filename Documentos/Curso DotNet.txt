@@ -250,12 +250,21 @@ Aula 80  - Configuração muitos para muitos (WebAPI)
 ThenInclude é utilizado em referencia muitos para muitos, primeiro usa include e pega a tabela intermediaria depois o theninclude na tabela destino no repository
 Em AutoMapperProfiles.cs -> No CreateMap utilizar ForMember MapFrom para informar que é muitos para muitos e fazer o relacionamento
 
-Aula 81 - DTO na controller
+Aula 81 - DTO na controller (WebAPI)
 Em EventoController colocar IMapper como parametro
 Alterar metodos para fazer o mapeamento
 
-Aula 82 - Controller DTO reverso
+Aula 82 - Controller DTO reverso (WebAPI)
+Em EventoController.cs alterar método post para passar EventoDTO e fazer o mapeamento do DTO para Evento
+Em AutoMapperProfiles.cs realizar o mapeamento de forma invertida, Ex. CreateMap<Evento, EventoDto()> o modo reverso é CreateMap<EventoDto, Evento()>, ou fazer do modo simplificado CreateMap<Evento, EventoDto()>().ReverseMap()
 
+Aula 83 - DTO método PUT (WebAPI)
+Em EventoController atualizar método PUT para fazer o mapper
+Quando faz put e não existe Id como em redes sociais, o registro é duplicado, em Dto de Rede Social incluir Id
+
+Aula 85 - Decorador ApiController - Apenas para conhecimento (WebAPI)
+Sem o decorador no parametro do método post tem que se utilizar FromBody para identificar os campos que estão sendo passados
+Sem o decorador não faz a validação do DataAnnotation automaticamente, tem que usar o ModelState.IsValid
 
 
 

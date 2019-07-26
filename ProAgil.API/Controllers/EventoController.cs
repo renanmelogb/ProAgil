@@ -75,57 +75,60 @@ namespace ProAgil.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Evento model)
+        public async Task<IActionResult> Post(EventoDto model)
         {
             try
             {
-                _repo.Add(model);
+                var evento = _mapper.Map<Evento>(model);
+
+                _repo.Add(evento);
 
                 if(await _repo.SaveChangesAsync())
                 {
                     //Se for inserido com sucesso chama a API get para retornar o resultado.
-                    return Created($"api/evento/{model.Id}", model);
+                    return Created($"api/evento/{model.Id}", _mapper.Map<EventoDto>(evento));
                 }
                 
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
                 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de Dados Falhou");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de Dados Falhou {ex.Message}");
             }       
 
             return BadRequest();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Put(int EventoId, Evento model)
+        [HttpPut("{EventoId}")]
+        public async Task<IActionResult> Put(int EventoId, EventoDto model)
         {
             try
             {
                 //Verifica se o registro existe, o false pois não preciso dos palestrantes
                 var evento = await _repo.GetEventoAsyncById(EventoId, false);
-
                 if(evento == null) return NotFound();
 
-                _repo.Update(model);
+                _mapper.Map(model, evento);
+
+                _repo.Update(evento);
 
                 if(await _repo.SaveChangesAsync())
                 {
                     //Se for inserido com sucesso chama a API get para retornar o resultado.
-                    return Created($"api/evento/{model.Id}", model);
+                    return Created($"api/evento/{model.Id}", _mapper.Map<EventoDto>(evento));
                 }
                 
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
                 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de Dados Falhou");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de Dados Falhou {ex.Message}");
             }       
 
             return BadRequest();
         }
 
-        [HttpDelete]
+        [HttpDelete("{EventoId}")]
         public async Task<IActionResult> Delete(int EventoId)
         {
             try
