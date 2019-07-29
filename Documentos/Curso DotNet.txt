@@ -246,6 +246,19 @@ Aula 72 - Editando Evento:
 Em evento.component.ts criar os metodos de editarevento e novoevento
 Primeiro deve ser carregado evento na tela
 
+Aula 78 - Criando DTOs data transfer object (WebAPI)
+AutoMapper -> retornar somente campos do objeto que serão utilizados
+Criar pasta DTO, criar classe EventoDto, LoteDto, RedeSocialDto, PalestranteDto
+Copiar propriedades das classes existentes para as novas classes DTO criadas, mantendo somente os campos necessários
+Nas dtos ao invés de utilizar DateTime se utiliza string pois é o retorno para o uusário
+
+Aula 79 - AutoMapper
+Associar os dominios aos DTOs
+ctrl + shift+ p para ir para o >nuget, digitar AutoMapper.Extensions.Microsoft.DependencyInjection, versão 4.0, deve ficar dentro de WebAPI
+Criar dentro da API novo diretório chamado "Helpers", dentro dele criar classe AutoMapperProfiles : Profile, herda de Profile 
+pq identifica automaticamente se existe algum arquivo de profile
+Criar um contrutor e criar os mapeamentos com CreateMap dentro dele
+Em startup ConfigureServices, services.AddAutoMapper();
 
 
 {{}}->Interpolação
@@ -261,6 +274,7 @@ ctrl+shift+p-> escrever reindent lines para identar linhas html
 
 Duvidas e anotações:
 O que é injeção de dependencia?
+O que é cors?
 Não esquecer de passar o validation no onInitit do projeto-> this.validation();
 Para inserir usa post e para editar put
 
