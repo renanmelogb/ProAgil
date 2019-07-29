@@ -266,6 +266,33 @@ Aula 85 - Decorador ApiController - Apenas para conhecimento (WebAPI)
 Sem o decorador no parametro do método post tem que se utilizar FromBody para identificar os campos que estão sendo passados
 Sem o decorador não faz a validação do DataAnnotation automaticamente, tem que usar o ModelState.IsValid
 
+Aula 87 - Adicionando NGX Toastr (APP)
+Tem a função de mostrar um popup de sucesso após confirmar a transação
+Seguir orientações de: https://www.npmjs.com/package/ngx-toastr
+Instalar -> npm install ngx-toastr --save
+Em app.module adicionar as referencias:
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+Adicionar nos imports
+BrowserAnimationsModule, // required animations module
+ToastrModule.forRoot() // ToastrModule added
+Em angular.json
+Adicionar em styles -> "node_modules/ngx-toastr/toastr.css"
+Em style.css adicionar #toaster-container > div {Opacity:1;}
+Em evento.component.ts
+import { ToastrService } from 'ngx-toastr';
+Adicionar referencia no construtor
+Realizar as chamadas onde deve aparecer a mensagem
+
+
+Aula 89 - Palestrante e Contatos
+Criar component palestrantes
+Criar component dashboard
+Criar component contatos
+
+Aula 90 - Rotas
+Alterar arquivo app-routing.module.ts a tag rotas para fazer o redirecionamento
+nav.component.html trocar o href por routerLink
 
 
 
