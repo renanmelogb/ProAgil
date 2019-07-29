@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule, BsDropdownModule, ModalModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 // Services
 import { EventoService } from './_services/evento.service';
 
@@ -13,16 +14,26 @@ import { EventoService } from './_services/evento.service';
 import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { NavComponent } from './nav/nav.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ContatosComponent } from './contatos/contatos.component';
+import { TituloComponent } from './_shared/titulo/titulo.component';
 
 // Pipes
 import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
+import { PalestranteComponent } from './palestrante/palestrante.component';
+
+
 
 @NgModule({
    declarations: [
       AppComponent,
       EventosComponent,
       NavComponent,
-      DateTimeFormatPipePipe
+      DashboardComponent,
+      ContatosComponent,
+      DateTimeFormatPipePipe,
+      PalestranteComponent,
+      TituloComponent
    ],
    imports: [
       BrowserModule,
@@ -30,6 +41,8 @@ import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
       BsDatepickerModule.forRoot(),
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
+      BrowserAnimationsModule,
+      ToastrModule.forRoot(),
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
@@ -37,7 +50,7 @@ import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
       BrowserAnimationsModule
    ],
    providers: [
-       EventoService
+      EventoService
    ],
    bootstrap: [
       AppComponent
