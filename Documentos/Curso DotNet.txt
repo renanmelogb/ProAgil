@@ -324,7 +324,21 @@ Em evento.service.ts criar o método postUpload para carregamento de imagens
 Em evento.component.ts alterar o método salvarAlteracao para pegar o nome do arquivo e passar o parametro posteriormente na gravação
 
 Aula 104 - Forçar Recarregar a Grid
+Em evento.component.ts:
+      this.eventoService.postUpload(this.file, nomeArquivo[2]).subscribe(
+        () => {
+          this.dataAtual = new Date().getMilliseconds().toString();
+          this.getEventos();
+        }
 
+
+Autenticação:
+
+Aula 107 -	Criando Entidades (Repository, Domain)
+Instalar Identity -> ctrl + shift + p -> nuget -> Microsoft.AspNetCore.Identity.EntityFrameworkCore -> 2.2.0 (Instalar no projeto Domain)
+Copiar item do ItemGroup do csproj do domain que identifica o identity e adicionar também no repository
+Em Repository ProagilContext herdar de IdentityDbContext
+Em Domain criar a pasta Identity e dentro de Identity criar as classes Role, User e UserRole, herdar das propriedades do Identity
 
 
 
