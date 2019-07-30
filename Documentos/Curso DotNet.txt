@@ -260,6 +260,68 @@ pq identifica automaticamente se existe algum arquivo de profile
 Criar um contrutor e criar os mapeamentos com CreateMap dentro dele
 Em startup ConfigureServices, services.AddAutoMapper();
 
+Aula 80  - Configuração muitos para muitos (WebAPI)
+ThenInclude é utilizado em referencia muitos para muitos, primeiro usa include e pega a tabela intermediaria depois o theninclude na tabela destino no repository
+Em AutoMapperProfiles.cs -> No CreateMap utilizar ForMember MapFrom para informar que é muitos para muitos e fazer o relacionamento
+
+Aula 81 - DTO na controller (WebAPI)
+Em EventoController colocar IMapper como parametro
+Alterar metodos para fazer o mapeamento
+
+Aula 82 - Controller DTO reverso (WebAPI)
+Em EventoController.cs alterar método post para passar EventoDTO e fazer o mapeamento do DTO para Evento
+Em AutoMapperProfiles.cs realizar o mapeamento de forma invertida, Ex. CreateMap<Evento, EventoDto()> o modo reverso é CreateMap<EventoDto, Evento()>, ou fazer do modo simplificado CreateMap<Evento, EventoDto()>().ReverseMap()
+
+Aula 83 - DTO método PUT (WebAPI)
+Em EventoController atualizar método PUT para fazer o mapper
+Quando faz put e não existe Id como em redes sociais, o registro é duplicado, em Dto de Rede Social incluir Id
+
+Aula 85 - Decorador ApiController - Apenas para conhecimento (WebAPI)
+Sem o decorador no parametro do método post tem que se utilizar FromBody para identificar os campos que estão sendo passados
+Sem o decorador não faz a validação do DataAnnotation automaticamente, tem que usar o ModelState.IsValid
+
+Aula 87 - Adicionando NGX Toastr (APP)
+Tem a função de mostrar um popup de sucesso após confirmar a transação
+Seguir orientações de: https://www.npmjs.com/package/ngx-toastr
+Instalar -> npm install ngx-toastr --save
+Em app.module adicionar as referencias:
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+Adicionar nos imports
+BrowserAnimationsModule, // required animations module
+ToastrModule.forRoot() // ToastrModule added
+Em angular.json
+Adicionar em styles -> "node_modules/ngx-toastr/toastr.css"
+Em style.css adicionar #toaster-container > div {Opacity:1;}
+Em evento.component.ts
+import { ToastrService } from 'ngx-toastr';
+Adicionar referencia no construtor
+Realizar as chamadas onde deve aparecer a mensagem
+
+
+Aula 89 - Palestrante e Contatos
+Criar component palestrantes
+Criar component dashboard
+Criar component contatos
+
+Aula 90 - Rotas
+Alterar arquivo app-routing.module.ts a tag rotas para fazer o redirecionamento
+nav.component.html trocar o href por routerLink
+
+
+Trabalhando com Imagens (WebAPI):
+Aula 97 - Upload na controller
+Em eventoController Criar novo método Post chamado upload onde será responsável por carregar as imagens e definir os diretórios
+Em startup Duplicar o app.UseStaticFiles passando parametros necessários para busca de diretório
+
+
+Aula 98,99,100 Botão enviarArquivo
+Em evento html criar botão para fazer upload do arquivo com suas propriedades
+Em eventon.component.ts criar método onchange que irá fazer upload do arquivo
+
+
+
+
 
 {{}}->Interpolação
 
@@ -277,6 +339,7 @@ O que é injeção de dependencia?
 O que é cors?
 Não esquecer de passar o validation no onInitit do projeto-> this.validation();
 Para inserir usa post e para editar put
+ThenInclude é utilizado em referencia muitos para muitos
 
 
 Template string:

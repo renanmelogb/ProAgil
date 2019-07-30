@@ -34,6 +34,8 @@ export class EventosComponent implements OnInit {
   // tslint:disable-next-line:variable-name
   _filtroLista = '';
 
+  file: File;
+
   constructor(
     private eventoService: EventoService,
     private modalService: BsModalService,
@@ -118,6 +120,14 @@ export class EventosComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]]
     });
   }
+
+    onFileChange(event) {
+      const reader = new FileReader();
+
+      if (event.target.files && event.target.files.length) {
+        this.file = event.target.files;
+      }
+    }
 
     salvarAlteracao(template: any) {
       if(this.registerForm.valid) {

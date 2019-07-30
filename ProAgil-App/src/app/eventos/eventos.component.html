@@ -42,7 +42,7 @@
     <tr *ngFor="let evento of eventosFiltrados">
       <td>
         <img *ngIf="mostrarImagem" 
-        src="http://localhost:5000/img/{{evento.imagemURL}}"
+        src="http://localhost:5000/resources/images/{{evento.imagemURL}}"
         [style.width.px]="imagemLargura">        
       </td>
       <td>{{evento.id}}</td>
@@ -162,8 +162,8 @@ role="dialog" aria-labelledby="dialog-sizes-name1">
           Enviar Imagem
         </button>
         <input type="file" #file [ngClass]="{'is-invalid': registerForm.get('imagemURL').errors 
-        && registerForm.get('imagemURL').touched}" class="form-control is-invalid"
-        formControlName="imagemURL" placeholder="" style="display: none">
+        && registerForm.get('imagemURL').touched}" (change)="onFileChange($event)"
+        class="form-control is-invalid" formControlName="imagemURL" placeholder="" style=display:none>
       </td>
     </tr>
   </table>
