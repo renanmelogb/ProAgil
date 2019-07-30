@@ -315,9 +315,15 @@ Em eventoController Criar novo método Post chamado upload onde será responsáv
 Em startup Duplicar o app.UseStaticFiles passando parametros necessários para busca de diretório
 
 
-Aula 98,99,100 Botão enviarArquivo
+Aula 98,99 Botão enviarArquivo
 Em evento html criar botão para fazer upload do arquivo com suas propriedades
 Em eventon.component.ts criar método onchange que irá fazer upload do arquivo
+
+Aula 100, 101 - Realizando Upload 
+Em evento.service.ts criar o método postUpload para carregamento de imagens 
+Em evento.component.ts alterar o método salvarAlteracao para pegar o nome do arquivo e passar o parametro posteriormente na gravação
+
+Aula 104 - Forçar Recarregar a Grid
 
 
 
