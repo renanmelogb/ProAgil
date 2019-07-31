@@ -363,7 +363,7 @@ base.OnModelCreating(ModelBuilder);
 
 Aula 109 - Criando novo banco
 Excluir migrations e arquivo de banco de dados
-No terminal do projeto Repository: 
+No terminal do projeto Repository criar migrations e depois criar banco: 
 dotnet ef --startup-project ../ProAgil.API migrations add init
 dotnet ef --startup-project ../ProAgil.API migrations database update
 
