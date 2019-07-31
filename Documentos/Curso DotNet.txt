@@ -340,6 +340,33 @@ Copiar item do ItemGroup do csproj do domain que identifica o identity e adicion
 Em Repository ProagilContext herdar de IdentityDbContext
 Em Domain criar a pasta Identity e dentro de Identity criar as classes Role, User e UserRole, herdar das propriedades do Identity
 
+Aula 108 - Relacionamento classes do Dominio com context de usuário (Repository)
+EM ProAgilContext na herança adicionar IdentityDbContext<User, Role, int,
+                                                    IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>,
+                                                    IdentityRoleClaim<int>, IdentityUserToken<int>>
+No metodo OnModelCreating adicionar para fazer o relacionamento:
+base.OnModelCreating(ModelBuilder);
+
+            ModelBuilder.Entity<UserRole>(userRole => {
+                userRole.HasKey(ur => new {ur.UserId, ur.RoleId});
+
+                userRole.HasOne(ur => ur.Role)
+                        .WithMany(r => r.UserRoles)
+                        .HasForeignKey(ur => ur.RoleId)
+                        .IsRequired();
+
+                userRole.HasOne(ur => ur.User)
+                        .WithMany(r => r.UserRoles)
+                        .HasForeignKey(ur => ur.UserId)
+                        .IsRequired();
+            });													
+
+Aula 109 - Criando novo banco
+Excluir migrations e arquivo de banco de dados
+No terminal do projeto Repository: 
+dotnet ef --startup-project ../ProAgil.API migrations add init
+dotnet ef --startup-project ../ProAgil.API migrations database update
+
 
 
 
