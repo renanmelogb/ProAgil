@@ -367,7 +367,22 @@ No terminal do projeto Repository criar migrations e depois criar banco:
 dotnet ef --startup-project ../ProAgil.API migrations add init
 dotnet ef --startup-project ../ProAgil.API migrations database update
 
+Aula 110 - Adicionar configurações startup (API)
+Nessa aula são adicionada configurações para os usuários e roles, marcado no código inicio e fim
 
+Aula 111 - JWT Json Web Token (API)
+https://jwt.io/
+
+Aula 112 - Adicionar configuração JWT
+Em Startup.cs Adicionar configuração JWT
+Em appsettings.Development.json adicionar AppSettings com Token
+Com isso todas controllers precisam de um token de autenticação para serem acessadas
+
+Aula 113, 114 - Controller User
+Criar novo controller chamado UserController
+Criar metodo Register na controller
+Criar classe UserDto nas DTOs
+Criar o mapeamento de User e UserDto em Helpers -> AutoMapperProfile
 
 
 {{}}->Interpolação
@@ -383,6 +398,7 @@ ctrl+shift+p-> escrever reindent lines para identar linhas html
 
 Duvidas e anotações:
 O que é injeção de dependencia?
+Para que serve um construtor?
 O que é cors?
 Não esquecer de passar o validation no onInitit do projeto-> this.validation();
 Para inserir usa post e para editar put
