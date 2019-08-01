@@ -77,7 +77,7 @@ namespace ProAgil.API
                     }
                 );
 
-            // Especifica que toda vez que chamar um controller vai executar uma das politicas abaixo
+            // Especifica que toda vez que chamar um controller vai executar uma das politicas abaixo, todo usuário deve estar autenticado para acessar as controllers
             services.AddMvc(options => {
                 var policy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
@@ -90,6 +90,7 @@ namespace ProAgil.API
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore); 
             // Fim aula 110
 
+            // Vincular a interface com a classe
             services.AddScoped<IProAgilRepository, ProAgilRepository>();                       
             services.AddAutoMapper();
             services.AddCors();

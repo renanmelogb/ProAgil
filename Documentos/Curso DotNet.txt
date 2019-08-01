@@ -384,6 +384,17 @@ Criar metodo Register na controller
 Criar classe UserDto nas DTOs
 Criar o mapeamento de User e UserDto em Helpers -> AutoMapperProfile
 
+Aula 115 - Método Register User
+Completar método de registrar usuário, nesse método adicionamos a anotação AllowAnonymous pois o usuário não precisa estar autenticado e 
+na classe startup definimos que todos métodos da controller devem ser autenticados.
+
+Aula 116 - Criar método Login
+Em UserController criar método Login
+Alterar AutoMapperProfiles para configurar o mapeamento de User e userLoginDto
+
+Aula 117 - Criando criptografia
+Em UserController criar o método GenerateJWToken responsavel pela criptografia dos login
+
 
 {{}}->Interpolação
 
