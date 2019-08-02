@@ -109,6 +109,9 @@ namespace ProAgil.API
                 app.UseHsts();
             }
 
+            // Para informar que serviço deve ser autenticado
+            app.UseAuthentication();
+
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseStaticFiles();
