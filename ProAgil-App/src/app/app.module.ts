@@ -21,6 +21,9 @@ import { TituloComponent } from './_shared/titulo/titulo.component';
 // Pipes
 import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
 import { PalestranteComponent } from './palestrante/palestrante.component';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegistrationComponent } from './user/registration/registration.component';
 
 
 
@@ -31,9 +34,12 @@ import { PalestranteComponent } from './palestrante/palestrante.component';
       NavComponent,
       DashboardComponent,
       ContatosComponent,
-      DateTimeFormatPipePipe,
       PalestranteComponent,
-      TituloComponent
+      TituloComponent,
+      UserComponent,
+      LoginComponent,
+      RegistrationComponent,
+      DateTimeFormatPipePipe
    ],
    imports: [
       BrowserModule,

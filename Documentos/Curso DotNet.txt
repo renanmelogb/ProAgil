@@ -395,12 +395,21 @@ Alterar AutoMapperProfiles para configurar o mapeamento de User e userLoginDto
 Aula 117 - Criando criptografia
 Em UserController criar o método GenerateJWToken responsavel pela criptografia dos login
 
-Aula 118 - Testes Postman
+Aula 118 - Testes Postman (API)
 Fazer a chamada de http://localhost:5000/api/user/Login para obter o token passando username e password
 Fazer a chamada de getuser deverá criar key authorization com valor "Bearer + " " + token"
 
-Aula 119 - Login Usuário
+Aula 119 - Login Usuário (API)
 Em startup.cs em ConfigureServices -> app.UseAuthentication();
+
+Aula 121 - Criando Login e Registration (APP)
+Criar o component user, dentro de user criar os components login e registration
+Em user.component.html alterar para usar rota, route-outlet
+Em app-routing.module.ts, criar o path de user onde login e registration são filhos de user
+Em app.module.ts adicionar as declarações de usercomponent, logincomponent, registrationcomponent
+
+
+
 
 
 {{}}->Interpolação
