@@ -69,6 +69,7 @@ namespace ProAgil.API
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateIssuerSigningKey = true,
+                            // Essa parte que realiza a real descriptografia
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
                                 .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
                                 ValidateIssuer = false,

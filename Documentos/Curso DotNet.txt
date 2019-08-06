@@ -408,6 +408,23 @@ Em user.component.html alterar para usar rota, route-outlet
 Em app-routing.module.ts, criar o path de user onde login e registration são filhos de user
 Em app.module.ts adicionar as declarações de usercomponent, logincomponent, registrationcomponent
 
+Aula 122 - Inserindo código fonde (APP)
+Em login.component.html -> Inserir html da página
+Em login.component.css -> Inserir css, foi retirado de site do bootstrap
+Em registration.component.html -> Inserir html da página
+
+Aula 123 - Tela Registrar Usuário (APP)
+Criar funções de validation
+Criar formgrouppassword no registration.component.html e no .ts no validation inserir fb.group para agrupar password e confirmpassword
+
+Aula 124 - Nav e Auth Service (APP)
+Criar método loggedIn em nav.component.ts e colocar if que verifica se está logado no html
+Criar novo service chamado auth e dentro do ts dele criar as operações login, register e loggedin
+
+Aula 125 
+Instalar auth jwt, descriptografar primeira parte do hash ("JwtHelperService")
+npm i @auth0/angular-jwt
+Implementar os métodos de sevice...ts criados na aula anterior
 
 
 
