@@ -426,6 +426,11 @@ Instalar auth jwt, descriptografar primeira parte do hash ("JwtHelperService")
 npm i @auth0/angular-jwt
 Implementar os métodos de sevice...ts criados na aula anterior
 
+Aula 127 e 128 (APP)
+Em registration...ts implementar método cadastrarUsuario, lembrar de adicionar as referencias nos construtores
+
+
+
 
 
 
