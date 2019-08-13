@@ -35,7 +35,7 @@
       <th>Data</th>
       <th>Qtd Pessoas</th>
       <th>Lote</th>
-      <th>Opções</th>
+      <th colspan="2" class="text-center">Opções</th>
     </tr>
   </thead>
   <tbody *ngIf="eventos && eventos.length">
@@ -67,6 +67,12 @@
             <i class="fa fa-eraser"></i>
           </button>
         </div>
+      </td>
+      <td>
+        <!-- No routerlink funciona como estivesse concatenando informações na url -->
+        <a [routerLink]="['/evento', evento.id, 'edit']" tooltip="Edição Detalhada" class="btn btn-sm btn-warning">
+          <i class="fa fa-edit"></i>
+        </a>
       </td>
     </tr>
   </tbody>
@@ -230,7 +236,7 @@ Deve ser um e-mail válido.
     		</div>    
     		<div class="modal-footer btn-group d-flex">      
       			<button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
-        			CENCELAR
+        			CANCELAR
       			</button>
       			<button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
           			DELETAR

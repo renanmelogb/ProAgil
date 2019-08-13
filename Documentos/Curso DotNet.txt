@@ -429,8 +429,48 @@ Implementar os métodos de sevice...ts criados na aula anterior
 Aula 127 e 128 (APP)
 Em registration...ts implementar método cadastrarUsuario, lembrar de adicionar as referencias nos construtores
 
+Aula 129 - Login (APP)
+Em login.component.ts criar o método login()
+Alterar ngOnInit
+Em nav.component.ts implementar métodos loggedIn, logout e entrar
+Alterar os devidod htmls conforme necessário
 
+Aula 130 - Header Autenticado (APP)
+Em evento.service.ts adicionar informação de header "tokenHeader" para autenticar quando chamar algum método
 
+Aula 131 - Gerar Guard (APP)
+No terminal "ng g g auth/auth" onde primeiro g é de generate e segundo de guardian 
+Guard tem a função de não deixar direcionar para uma pagina quando não está logado
+Implementar o auth.guard.ts que foi criado
+Em app-routing.module.ts adicionar os parametros do guard as rotas que devem estar autenticadas
+
+Aula 132 - Interceptor (APP)
+Na pasta auth criar um arquivo auth.interceptor.ts 
+Nesse arquivo será implementado a regra para verificar se existe token em localstorage e passar o token para as requisições não sendo necessário 
+passar o parametro requisição por requisição como na aula anterior
+Em app.module.ts providers adicionar o objeto abaixo:
+{
+   provide: HTTP_INTERCEPTORS,
+   useClass: AuthInterceptor,
+   multi: true
+}
+
+Aula 135 - Criando e Roteando Evento Edit (APP)
+Criar novo componente dentro de Eventos chamado eventoEdit
+Em app-routing.module.ts criar rota para o novo componente "evento/:id/edit"
+Em app.module.ts adicionar referencia ao component
+
+Aula 136 - Html EventoEdit
+Colocar máscara em campo telefone, instalar "npm i ngx-mask"
+Em app.module.ts adicionar import de "import { NgxMaskModule } from 'ngx-mask'"
+Em app.module.ts adicionar import de "TabsModule" para usar tabset no html
+
+Aula 137 - Adicionar Hmtl ao EventoEdit
+
+Aula 138 - Trocando Imagem
+Em src -> assets criar pasta img e dentro da pasta inserir imagem
+Em eventoEdit.component.ts adicionar a referencia a imagem no html colocar src para imgemURL
+Em eventoEdit.component.ts criar metodo onFileChange para trocar a imagem quando selecionada
 
 
 
@@ -452,6 +492,7 @@ O que é cors?
 Não esquecer de passar o validation no onInitit do projeto-> this.validation();
 Para inserir usa post e para editar put
 ThenInclude é utilizado em referencia muitos para muitos
+style="cursor: pointer" -> troca seta pela mãozinha quando for selecionar algo
 
 
 Template string:
