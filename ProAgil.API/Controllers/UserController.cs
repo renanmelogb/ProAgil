@@ -25,14 +25,18 @@ namespace ProAgil.API.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
+        private readonly RoleManager<Role> _roleManager;
 
         public UserController(IConfiguration config,
                               UserManager<User> userManager,
                               SignInManager<User> signInManager,
-                              IMapper mapper)
+                              IMapper mapper,
+                              RoleManager<Role> roleManager
+                              )
         {
             this._signInManager = signInManager;
-            this._mapper = mapper;            
+            this._mapper = mapper;
+            this._roleManager = roleManager;
             this._config = config;
             this._userManager = userManager;                        
         }
@@ -52,8 +56,18 @@ namespace ProAgil.API.Controllers
             {
                 // Mapeamento de user para a Dto
                 var user = _mapper.Map<User>(userDto);
+
                 // Para criar o usuário é necessário para todos dados de user não apenas o que tem na dto
                 var result = await _userManager.CreateAsync(user, userDto.Password);
+
+                //await _userManager.AddToRoleAsync(user, "Customer");
+                var applicationRole = await _roleManager.FindByNameAsync(userDto.role);
+                    if (applicationRole != null)
+                    {
+                        IdentityResult roleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
+                    }
+
+
                 // Retornar somente o necesário
                 var userToReturn = _mapper.Map<UserDto>(user);
 
@@ -83,6 +97,9 @@ namespace ProAgil.API.Controllers
 
                 if (result.Succeeded)
                 {
+                    var role = await _userManager.GetRolesAsync(user);
+                    IdentityOptions _options = new IdentityOptions();
+
                     var appUser = await _userManager.Users
                         .FirstOrDefaultAsync(u => u.NormalizedUserName == userLogin.UserName.ToUpper());
 
@@ -138,6 +155,22 @@ namespace ProAgil.API.Controllers
                 var token = tokenHandler.CreateToken(tokenDescriptor);
 
                 return tokenHandler.WriteToken(token);
+        }
+
+        [Authorize(Roles = "Customer")]
+        [HttpGet("GetForCustomer")]
+        //[AllowAnonymous]        
+        public IActionResult GetForCustomer()
+        {
+            try
+            {
+                return Ok("Web method for Customer");
+            }
+            catch (System.Exception)
+            {
+                return Forbid();
+            }
+            
         }
     }
 }

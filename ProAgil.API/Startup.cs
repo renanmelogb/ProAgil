@@ -40,8 +40,12 @@ namespace ProAgil.API
         {
             services.AddDbContext<ProAgilContext>(
                 x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
-            );
-            
+            );                    
+
+            services.AddIdentity<User, Role>()
+                    .AddEntityFrameworkStores<ProAgilContext>()
+                    .AddDefaultTokenProviders();  
+
             // Inicio aula 110
             IdentityBuilder builder = services.AddIdentityCore<User>(options => 
             {
@@ -54,29 +58,30 @@ namespace ProAgil.API
 
             // Adicionando regras de contexto e roles
             builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
-            builder.AddEntityFrameworkStores<ProAgilContext>();
+            //builder.AddEntityFrameworkStores<ProAgilContext>();
             builder.AddRoleValidator<RoleValidator<Role>>();
             builder.AddRoleManager<RoleManager<Role>>();
-            builder.AddSignInManager<SignInManager<User>>();
+            builder.AddSignInManager<SignInManager<User>>();                      
 
-            
-
+            var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
             // Adicionar configuração da JWT
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                    {
-                        // ValidateIssuerSigningKey -> emissor da chave
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidateIssuerSigningKey = true,
-                            // Essa parte que realiza a real descriptografia
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                                .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-                                ValidateIssuer = false,
-                                ValidateAudience = false
-                        };
-                    }
-                );
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             // Especifica que toda vez que chamar um controller vai executar uma das politicas abaixo, todo usuário deve estar autenticado para acessar as controllers
             services.AddMvc(options => {

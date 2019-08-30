@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
@@ -26,6 +27,7 @@ namespace ProAgil.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "CUSTOMER")]
         public async Task<IActionResult> Get()
         {
             try
@@ -43,7 +45,7 @@ namespace ProAgil.API.Controllers
             }       
         }
 
-                [HttpPost("upload")]
+        [HttpPost("upload")]
         public async Task<IActionResult> upload()
         {
             try
