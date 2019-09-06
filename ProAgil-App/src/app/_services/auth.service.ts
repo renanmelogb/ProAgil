@@ -11,14 +11,15 @@ export class AuthService {
   baseURL = 'http://localhost:5000/api/user/';
   jwtHelper = new JwtHelperService();
   decodedToken: any;
+  rolelst: any;
 
   constructor(private http: HttpClient) { }
 
   login(model: any) {
-    return this.http
-      .post(`${this.baseURL}login`, model).pipe(
+    return this.http.post(`${this.baseURL}login`, model).pipe(
         map((response: any) => {
           const user = response;
+          this.rolelst = response.rolename;
           if (user) {
             // Salvando informação de token dentro de localStorage->token, localstorage
             // é o armazenamento local que existe dentro do browser

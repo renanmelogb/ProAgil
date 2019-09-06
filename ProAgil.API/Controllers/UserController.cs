@@ -109,7 +109,8 @@ namespace ProAgil.API.Controllers
                     // Retorna o token baseado no usuário encontrado em user manager
                     return Ok(new {
                         token = GenerateJWToken(appUser).Result,
-                        user = userToReturn
+                        user = userToReturn,
+                        rolename = role
                     });                    
                 }
 
