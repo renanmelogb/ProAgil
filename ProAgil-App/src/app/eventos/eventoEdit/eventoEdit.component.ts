@@ -4,6 +4,7 @@ import { BsModalService, BsLocaleService } from 'ngx-bootstrap';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from 'src/app/_models/Evento';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-eventoEdit',
@@ -17,6 +18,8 @@ export class EventoEditComponent implements OnInit {
   imagemURL = 'assets/img/uploadImage.png';
   registerForm: FormGroup;
   file: File;
+  fileNameToUpdate: string;
+  dataAtual: '';
 
   get lotes(): FormArray {
     return <FormArray>this.registerForm.get('lotes');
@@ -28,7 +31,9 @@ export class EventoEditComponent implements OnInit {
 
   constructor(
     private eventoService: EventoService,
-    private modalService: BsModalService,
+    // Removido para utilizar o ActivateRouter
+    // private modalService: BsModalService,
+    private router: ActivatedRoute,
     private fb: FormBuilder,
     private localeService: BsLocaleService,
     private toastr: ToastrService
@@ -38,6 +43,23 @@ export class EventoEditComponent implements OnInit {
 
   ngOnInit() {
     this.validation();
+    this.carregarEvento();
+  }
+
+  carregarEvento() {
+    // O + na frente do this converte para numerico
+    const idEvento = +this.router.snapshot.paramMap.get('id');
+    this.eventoService.getEventoById(idEvento).subscribe(
+      (evento: Evento) => {
+      this.evento = Object.assign({}, evento);
+      this.fileNameToUpdate = evento.imagemURL.toString();
+      this.imagemURL = `http://localhost:5000/resources/images/${evento.imagemURL}?_ts=${dataAtual}`
+      // O this nesse caso serve para limpar a cópia que foi feita do elemento e não o elemento em si
+      this.evento.imagemURL = '';
+      // carrega dados no form
+      this.registerForm.patchValue(this.evento);
+      }
+    );
   }
 
   validation() {
