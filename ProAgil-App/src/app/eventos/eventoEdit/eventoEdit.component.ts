@@ -53,17 +53,25 @@ export class EventoEditComponent implements OnInit {
       (evento: Evento) => {
       this.evento = Object.assign({}, evento);
       this.fileNameToUpdate = evento.imagemURL.toString();
-      this.imagemURL = `http://localhost:5000/resources/images/${evento.imagemURL}?_ts=${dataAtual}`
+      this.imagemURL = `http://localhost:5000/resources/images/${evento.imagemURL}?_ts=${this.dataAtual}`
       // O this nesse caso serve para limpar a cópia que foi feita do elemento e não o elemento em si
       this.evento.imagemURL = '';
       // carrega dados no form
       this.registerForm.patchValue(this.evento);
+
+      this.evento.lotes.forEach(lote => {
+        this.lotes.push(this.criaLote(lote));
+      });
+      this.evento.redesSociais.forEach(redeSocial => {
+        this.redesSociais.push(this.criarRedeSocial(redeSocial));
+      });
       }
     );
   }
 
   validation() {
     this.registerForm = this.fb.group({
+      id: [],
       tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       local: ['', Validators.required],
       dataEvento: ['', Validators.required],
@@ -71,33 +79,35 @@ export class EventoEditComponent implements OnInit {
       qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      lotes: this.fb.array([this.criaLote()]),
-      redesSociais: this.fb.array([this.criarRedeSocial()])
+      lotes: this.fb.array([]),
+      redesSociais: this.fb.array([])
     });
   }
 
-  criaLote(): FormGroup {
+  criaLote(lote: any): FormGroup {
     return this.fb.group({
-      nome: ['', Validators.required],
-      quantidade: ['', Validators.required],
-      dataInicio: [''],
-      dataFim: ['']});
+      id: [lote.id],
+      nome: [lote.nome, Validators.required],
+      quantidade: [lote.quantidade, Validators.required],
+      dataInicio: [lote.dataInicio],
+      dataFim: [lote.dataFim]});
   }
 
-  criarRedeSocial(): FormGroup {
+  criarRedeSocial(redeSocial: any): FormGroup {
     return this.fb.group({
-      nome: ['', Validators.required],
-      url: ['', Validators.required]
+      id: [redeSocial.id],
+      nome: [redeSocial.nome, Validators.required],
+      url: [redeSocial.url, Validators.required]
       });
   }
 
   adicionarLote() {
-    this.lotes.push(this.criaLote());
+    this.lotes.push(this.criaLote({ id: 0 }));
   }
 
   // Adiciona form para adicionar mais uma rede social
   adicionarRedeSocial() {
-    this.redesSociais.push(this.criarRedeSocial());
+    this.redesSociais.push(this.criarRedeSocial({ id: 0 }));
   }
 
   // Remove quadro de rede social vazio
