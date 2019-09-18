@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxMaskModule } from 'ngx-mask';
-
+import { NgxCurrencyModule } from 'ngx-currency';
 // Services
 import { EventoService } from './_services/evento.service';
 
@@ -56,6 +56,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       ToastrModule.forRoot(),
       TabsModule.forRoot(),
       NgxMaskModule.forRoot(),
+      NgxCurrencyModule,
       AppRoutingModule,
       HttpClientModule,
       FormsModule,

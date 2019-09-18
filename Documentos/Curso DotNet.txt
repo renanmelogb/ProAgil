@@ -481,7 +481,12 @@ Aula 145 - Método Salvar
 Aula 146 - Deletando Relacionamento (API)
 Nesse ponto quando é removido um lote ou rede social e atualizado não está excluindo os mesmos, pois a conexão com entity está definida com AsNoTracking para realizar o Mapper.
 
-
+Aula 149 - Mascara R$ (Dinheiro) (APP)
+Instalara extensão "npm i ngx-currency"
+Adicionar imports em app.module.ts
+https://www.npmjs.com/package/ngx-currency
+Adicionar no html onde tiver valor currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
+Adicionar prefixo no link prefix="http://" mask=""
 
 
 

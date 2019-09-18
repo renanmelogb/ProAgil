@@ -27,6 +27,7 @@ export class AuthService {
             // Decodificando a primeira parte do token que não usa chave de descriptografia
             // A real parte que faz a descriptografia está em startup
             this.decodedToken = this.jwtHelper.decodeToken(user.token);
+            sessionStorage.setItem('username', this.decodedToken.unique_name);
           }
         })
       );
