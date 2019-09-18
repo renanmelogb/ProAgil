@@ -472,6 +472,18 @@ Em src -> assets criar pasta img e dentro da pasta inserir imagem
 Em eventoEdit.component.ts adicionar a referencia a imagem no html colocar src para imgemURL
 Em eventoEdit.component.ts criar metodo onFileChange para trocar a imagem quando selecionada
 
+Aula 142 - Carregar Evento (eventoEdit.component.ts)
+Remover BsModal e utilizar o ActivateRoute no constructor
+Com router consegue por exemplo pegar um valor da rota, nesse caso o id com snapshot
+
+Aula 145 - Método Salvar
+
+Aula 146 - Deletando Relacionamento (API)
+Nesse ponto quando é removido um lote ou rede social e atualizado não está excluindo os mesmos, pois a conexão com entity está definida com AsNoTracking para realizar o Mapper.
+
+
+
+
 
 
 {{}}->Interpolação
