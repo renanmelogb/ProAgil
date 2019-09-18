@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -146,9 +147,30 @@ namespace ProAgil.API.Controllers
         {
             try
             {
+                var idLotes = new List<int>();
+                var idRedesSociais = new List<int>();
+
+                // Listar lotes e redes sociais que estão na lista atual aula 146, para remover os outros que não estão
+                foreach(var item in model.Lotes)
+                    idLotes.Add(item.Id);
+
+                foreach(var item in model.RedesSociais)
+                    idRedesSociais.Add(item.Id);
+
                 //Verifica se o registro existe, o false pois não preciso dos palestrantes
                 var evento = await _repo.GetEventoAsyncById(EventoId, false);
                 if(evento == null) return NotFound();
+                
+                // Retorna os lotes que estão na lista de removidos para fazer o delete
+                var lotes = evento.Lotes.Where(lote => !idLotes.Contains(lote.Id)).ToList<Lote>();
+                var redesSociais = evento.RedesSociais.Where(redeSocial => !idRedesSociais.Contains(redeSocial.Id)).ToList<RedeSocial>();
+
+                // Usa o foreach para deletar um por um
+                if(lotes.Count > 0)
+                   lotes.ForEach(lote => _repo.Delete(lote));
+
+                if(redesSociais.Count > 0)
+                    redesSociais.ForEach(rede => _repo.Delete(rede));
 
                 _mapper.Map(model, evento);
 

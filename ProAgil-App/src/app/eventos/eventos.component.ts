@@ -134,7 +134,6 @@ export class EventosComponent implements OnInit {
     }
 
     uploadImagem() {
-
       if (this.modoSalvar === 'post') {
       // O que escolher de arquivo será carregado em imagemURL o split quebra por exemplo c:\\diretorio\\nomearquivo.txt para pegar somente o nome do arquivo
       const nomeArquivo = this.evento.imagemURL.split('\\', 3);
@@ -198,6 +197,8 @@ export class EventosComponent implements OnInit {
   }
 
   getEventos() {
+    // Necessário para dintinguir imagem e carregar a nova
+    this.dataAtual = new Date().getMilliseconds().toString();
     this.eventoService.getAllEvento().subscribe(
     // tslint:disable-next-line:variable-name
     (_eventos: Evento[]) => {

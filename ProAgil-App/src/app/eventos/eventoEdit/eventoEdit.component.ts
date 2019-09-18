@@ -19,7 +19,7 @@ export class EventoEditComponent implements OnInit {
   registerForm: FormGroup;
   file: File;
   fileNameToUpdate: string;
-  dataAtual: '';
+  dataAtual: string;
 
   get lotes(): FormArray {
     return <FormArray>this.registerForm.get('lotes');
@@ -53,7 +53,7 @@ export class EventoEditComponent implements OnInit {
       (evento: Evento) => {
       this.evento = Object.assign({}, evento);
       this.fileNameToUpdate = evento.imagemURL.toString();
-      this.imagemURL = `http://localhost:5000/resources/images/${evento.imagemURL}?_ts=${this.dataAtual}`
+      this.imagemURL = `http://localhost:5000/resources/images/${this.evento.imagemURL}?_ts=${this.dataAtual}`;
       // O this nesse caso serve para limpar a cópia que foi feita do elemento e não o elemento em si
       this.evento.imagemURL = '';
       // carrega dados no form
@@ -124,7 +124,35 @@ export class EventoEditComponent implements OnInit {
 
     reader.onload = (event: any) => this.imagemURL = event.target.result;
 
+    this.file = event.target.files;
     reader.readAsDataURL(file[0]);
   }
 
+  salvarEvento() {
+    this.evento = Object.assign({id: this.evento.id}, this.registerForm.value);
+    this.evento.imagemURL = this.fileNameToUpdate;
+    this.uploadImagem();
+
+    this.eventoService.putEvento(this.evento).subscribe(
+       (novoEvento: Evento) => {
+        this.toastr.success('Editado com sucesso!');
+      }, error => {
+        this.toastr.error(`Erro ao Editar: ${error}`);
+        console.log(error);
+      }
+    );
+  }
+
+  uploadImagem() {
+      // Valida se alterou a imagem para fazer upload
+      if (this.registerForm.get('imagemURL').value !== '') {
+        this.eventoService.postUpload(this.file, this.fileNameToUpdate)
+        .subscribe(
+          () => {
+            this.dataAtual = new Date().getMilliseconds().toString();
+            this.imagemURL = `http://localhost:5000/resources/images/${this.evento.imagemURL}?_ts=${this.dataAtual}`;
+          }
+        );
+      }
+  }
 }
