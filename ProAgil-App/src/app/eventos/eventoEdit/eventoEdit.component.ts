@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { EventoService } from 'src/app/_services/evento.service';
-import { BsModalService, BsLocaleService } from 'ngx-bootstrap';
+import { BsLocaleService } from 'ngx-bootstrap';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from 'src/app/_models/Evento';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-eventoEdit',
+  selector: 'app-evento-edit',
   templateUrl: './eventoEdit.component.html',
   styleUrls: ['./eventoEdit.component.css']
 })
@@ -15,11 +15,12 @@ export class EventoEditComponent implements OnInit {
 
   titulo = 'Editar Evento';
   evento: Evento = new Evento();
-  imagemURL = 'assets/img/uploadImage.png';
+  imagemURL = 'assets/img/upload.png';
   registerForm: FormGroup;
   file: File;
   fileNameToUpdate: string;
-  dataAtual: string;
+
+  dataAtual = '';
 
   get lotes(): FormArray {
     return <FormArray>this.registerForm.get('lotes');
@@ -30,13 +31,11 @@ export class EventoEditComponent implements OnInit {
   }
 
   constructor(
-    private eventoService: EventoService,
-    // Removido para utilizar o ActivateRouter
-    // private modalService: BsModalService,
-    private router: ActivatedRoute,
-    private fb: FormBuilder,
-    private localeService: BsLocaleService,
-    private toastr: ToastrService
+    private eventoService: EventoService
+    , private fb: FormBuilder
+    , private localeService: BsLocaleService
+    , private toastr: ToastrService
+    , private router: ActivatedRoute
   ) {
     this.localeService.use('pt-br');
   }
@@ -49,24 +48,26 @@ export class EventoEditComponent implements OnInit {
   carregarEvento() {
     // O + na frente do this converte para numerico
     const idEvento = +this.router.snapshot.paramMap.get('id');
-    this.eventoService.getEventoById(idEvento).subscribe(
-      (evento: Evento) => {
-      this.evento = Object.assign({}, evento);
-      this.fileNameToUpdate = evento.imagemURL.toString();
-      this.imagemURL = `http://localhost:5000/resources/images/${this.evento.imagemURL}?_ts=${this.dataAtual}`;
-      // O this nesse caso serve para limpar a cópia que foi feita do elemento e não o elemento em si
-      this.evento.imagemURL = '';
-      // carrega dados no form
-      this.registerForm.patchValue(this.evento);
+    this.eventoService.getEventoById(idEvento)
+      .subscribe(
+        (evento: Evento) => {
+          this.evento = Object.assign({}, evento);
+          this.fileNameToUpdate = evento.imagemURL.toString();
 
-      this.evento.lotes.forEach(lote => {
-        this.lotes.push(this.criaLote(lote));
-      });
-      this.evento.redesSociais.forEach(redeSocial => {
-        this.redesSociais.push(this.criarRedeSocial(redeSocial));
-      });
-      }
-    );
+          this.imagemURL = `http://localhost:5000/resources/images/${this.evento.imagemURL}?_ts=${this.dataAtual}`;
+          // O this nesse caso serve para limpar a cópia que foi feita do elemento e não o elemento em si
+          this.evento.imagemURL = '';
+          // carrega dados no form
+          this.registerForm.patchValue(this.evento);
+
+          this.evento.lotes.forEach(lote => {
+            this.lotes.push(this.criaLote(lote));
+          });
+          this.evento.redesSociais.forEach(redeSocial => {
+            this.redesSociais.push(this.criaRedeSocial(redeSocial));
+          });
+        }
+      );
   }
 
   validation() {
@@ -89,16 +90,18 @@ export class EventoEditComponent implements OnInit {
       id: [lote.id],
       nome: [lote.nome, Validators.required],
       quantidade: [lote.quantidade, Validators.required],
+      preco: [lote.preco, Validators.required],
       dataInicio: [lote.dataInicio],
-      dataFim: [lote.dataFim]});
+      dataFim: [lote.dataFim]
+    });
   }
 
-  criarRedeSocial(redeSocial: any): FormGroup {
+  criaRedeSocial(redeSocial: any): FormGroup {
     return this.fb.group({
       id: [redeSocial.id],
       nome: [redeSocial.nome, Validators.required],
       url: [redeSocial.url, Validators.required]
-      });
+    });
   }
 
   adicionarLote() {
@@ -107,7 +110,11 @@ export class EventoEditComponent implements OnInit {
 
   // Adiciona form para adicionar mais uma rede social
   adicionarRedeSocial() {
-    this.redesSociais.push(this.criarRedeSocial({ id: 0 }));
+    this.redesSociais.push(this.criaRedeSocial({ id: 0 }));
+  }
+
+  removerLote(id: number) {
+    this.lotes.removeAt(id);
   }
 
   // Remove quadro de rede social vazio
@@ -115,44 +122,41 @@ export class EventoEditComponent implements OnInit {
     this.redesSociais.removeAt(id);
   }
 
-  removerLote(id: number) {
-    this.lotes.removeAt(id);
-  }
-
-  onFileChange(file: FileList) {
+  onFileChange(evento: any, file: FileList) {
     const reader = new FileReader();
 
     reader.onload = (event: any) => this.imagemURL = event.target.result;
 
-    this.file = event.target.files;
+    this.file = evento.target.files;
     reader.readAsDataURL(file[0]);
   }
 
   salvarEvento() {
-    this.evento = Object.assign({id: this.evento.id}, this.registerForm.value);
+    this.evento = Object.assign({ id: this.evento.id }, this.registerForm.value);
     this.evento.imagemURL = this.fileNameToUpdate;
+
     this.uploadImagem();
 
     this.eventoService.putEvento(this.evento).subscribe(
-       (novoEvento: Evento) => {
-        this.toastr.success('Editado com sucesso!');
+      () => {
+        this.toastr.success('Editado com Sucesso!');
       }, error => {
         this.toastr.error(`Erro ao Editar: ${error}`);
-        console.log(error);
       }
     );
   }
 
   uploadImagem() {
-      // Valida se alterou a imagem para fazer upload
-      if (this.registerForm.get('imagemURL').value !== '') {
-        this.eventoService.postUpload(this.file, this.fileNameToUpdate)
+    // Valida se alterou a imagem para fazer upload
+    if (this.registerForm.get('imagemURL').value !== '') {
+      this.eventoService.postUpload(this.file, this.fileNameToUpdate)
         .subscribe(
           () => {
             this.dataAtual = new Date().getMilliseconds().toString();
             this.imagemURL = `http://localhost:5000/resources/images/${this.evento.imagemURL}?_ts=${this.dataAtual}`;
           }
         );
-      }
+    }
   }
+
 }

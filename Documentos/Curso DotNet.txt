@@ -488,7 +488,36 @@ https://www.npmjs.com/package/ngx-currency
 Adicionar no html onde tiver valor currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
 Adicionar prefixo no link prefix="http://" mask=""
 
+Aula 153 - Bootswatch
+Tem como função melhorar o visual da aplicação
+https://bootswatch.com/3/lumen/
+npm i bootswatch
+Após instalar, abrir o arquivo style.css e inserir intrução de import do tema lumen/
 
+Aula 154 - Remover menu superior da tela de login
+Em nav.component.ts criar função showMenu
+
+Aula 155 - Dashboard
+https://bootsnipp.com/snippets/aMp3k
+Copiar html do dashboard e colocar em dashboard.component.html
+Copiar css e colar em dashboard.component.css
+
+Aula 156 - Deployment
+https://angular.io/guide/deployment
+Necessário instalar para não instalar arquivos com mesmo nome, atualiza nome dos arquivos no servidor
+npm install source-map-explorer --save-dev
+Rodas o comando abaixo para build, irá criar diretório dist
+ng build --prod --source-map
+É possivel rodar a aplicação da pasta dist
+ng serve --port 4201 -o
+
+Aula 157 - Publish Api
+-o definiri local
+dotnet publish -o /Users/renan.melo/Desktop/ProAgil
+Em Web.api no arquivo startup.cs existe o apontamento para Resources, deveido a isso é necessário criar a pasta Resources onde foi feito o publish
+Para rodar a aplicação ir até a pasta do publish pelo command do vs
+dotnet ProAgil.API.dll
+Copiar configurações de appsettings.development.json para appsettings.json
 
 
 {{}}->Interpolação
